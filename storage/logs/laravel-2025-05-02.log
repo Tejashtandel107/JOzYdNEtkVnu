@@ -1,0 +1,14 @@
+[2025-05-02 15:21:31] local.ERROR: The "-e" option does not exist. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"-e\" option does not exist. at /var/www/html/gurukrupafoodproducts/application/vendor/symfony/console/Input/ArgvInput.php:125)
+[stacktrace]
+#0 /var/www/html/gurukrupafoodproducts/application/vendor/symfony/console/Input/ArgvInput.php(105): Symfony\\Component\\Console\\Input\\ArgvInput->parseShortOptionSet()
+#1 /var/www/html/gurukrupafoodproducts/application/vendor/symfony/console/Input/ArgvInput.php(84): Symfony\\Component\\Console\\Input\\ArgvInput->parseShortOption()
+#2 /var/www/html/gurukrupafoodproducts/application/vendor/symfony/console/Input/Input.php(55): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#3 /var/www/html/gurukrupafoodproducts/application/vendor/symfony/console/Command/Command.php(214): Symfony\\Component\\Console\\Input\\Input->bind()
+#4 /var/www/html/gurukrupafoodproducts/application/vendor/symfony/console/Application.php(908): Symfony\\Component\\Console\\Command\\Command->run()
+#5 /var/www/html/gurukrupafoodproducts/application/vendor/symfony/console/Application.php(269): Symfony\\Component\\Console\\Application->doRunCommand()
+#6 /var/www/html/gurukrupafoodproducts/application/vendor/symfony/console/Application.php(145): Symfony\\Component\\Console\\Application->doRun()
+#7 /var/www/html/gurukrupafoodproducts/application/vendor/laravel/framework/src/Illuminate/Console/Application.php(90): Symfony\\Component\\Console\\Application->run()
+#8 /var/www/html/gurukrupafoodproducts/application/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(122): Illuminate\\Console\\Application->run()
+#9 /var/www/html/gurukrupafoodproducts/application/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
+#10 {main}
+"} 
