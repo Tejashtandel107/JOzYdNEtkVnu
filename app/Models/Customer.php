@@ -84,6 +84,11 @@ class Customer extends Model
      */
     public function deleteFile($file="") 
     {
-        return Storage::delete($file);
+        if (Storage::exists($file)) {
+            return Storage::delete($file);
+        }
+
+        // Optional: return false or throw exception if file not found
+        return false;
     }
 }

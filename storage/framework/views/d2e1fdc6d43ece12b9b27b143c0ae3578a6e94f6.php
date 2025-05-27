@@ -1,2 +1,0 @@
-Showing <span class="font-bold"><?php echo e($first); ?></span> to <span class="font-bold"><?php echo e($last); ?></span> of <span class="font-bold"><?php echo e($total); ?></span> entries
-<?php /**PATH /var/www/html/gurukrupafoodproducts/application/resources/views/admin/inc/entries.blade.php ENDPATH**/ ?>

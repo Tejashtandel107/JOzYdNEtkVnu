@@ -2,7 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\Providers\RouteServiceProvider;
 use Closure;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class RedirectIfAuthenticated
@@ -15,18 +17,22 @@ class RedirectIfAuthenticated
      * @param  string|null  $guard
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = null)
+    public function handle(Request $request, Closure $next, ...$guards)
     {
-        if (Auth::guard($guard)->check()) {
-            $role_id = Auth::user()->getRoleId();
-            if ($role_id==config ('constant.ROLE_SUPER_ADMIN_ID')) {
-                return redirect ()->route('admin.home');
-            }
-            else if ($role_id==config ('constant.ROLE_ADMIN_ID')) {
-                return redirect ()->route('admin.home');
-            }
-            else {
-                return redirect ()->route('user.outwards.index');
+         $guards = empty($guards) ? [null] : $guards;
+
+        foreach ($guards as $guard) {
+            if (Auth::guard($guard)->check()) {
+                $role_id = Auth::user()->getRoleId();
+                if ($role_id==config ('constant.ROLE_SUPER_ADMIN_ID')) {
+                    return redirect ()->route('admin.home');
+                }
+                else if ($role_id==config ('constant.ROLE_ADMIN_ID')) {
+                    return redirect ()->route('admin.home');
+                }
+                else {
+                    return redirect ()->route('user.outwards.index');
+                }
             }
         }
 

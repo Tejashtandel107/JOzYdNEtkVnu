@@ -58,14 +58,14 @@
             }
         }
 
-        public static function getProfileImg($value) {
-            if(Storage::exists($value)){
+       public static function getProfileImg($value) {
+            if (!empty($value) && Storage::exists($value)) {
                 return Storage::url($value);
-            }
-            else{
+            } else {
                 return config('constant.DEFAULT_IMG_PROFILE');
             }
         }
+
 
         public static function getStoragePath($value) {
             if(Storage::exists($value)){

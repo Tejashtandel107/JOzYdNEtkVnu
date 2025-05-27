@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laravel\Sanctum\HasApiTokens;
 use Storage;
 use Auth;
 use Helper;
@@ -14,9 +15,7 @@ use Helper;
 
 class User extends Authenticatable
 {
-    use Notifiable;
-    use SoftDeletes;
-    use HasFactory;
+    use Notifiable,SoftDeletes,HasApiTokens,HasFactory;
 
     protected $primaryKey = 'user_id';
 
@@ -82,7 +81,12 @@ class User extends Authenticatable
      */
     public function deleteFile($file="") 
     {
-        return Storage::delete($file);
+        if (Storage::exists($file)) {
+            return Storage::delete($file);
+        }
+
+        // Optional: return false or throw exception if file not found
+        return false;
     }
 
     public function getRoleId($user_id=0){
