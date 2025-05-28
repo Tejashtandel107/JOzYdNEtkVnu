@@ -57,7 +57,7 @@ Login
                 <div class="flexbox mb-5">
                     <span>
                         <label class="ui-switch switch-icon mr-2 mb-0">
-                            <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                            <input type="checkbox" name="remember" @checked(old('remember'))>
                             <span></span>
                         </label>Remember
                     </span>

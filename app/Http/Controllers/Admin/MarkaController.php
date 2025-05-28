@@ -14,7 +14,7 @@ use Validator;
 
 class MarkaController extends Controller
 {
-    protected $marka_obj;
+    protected $marka_obj,$orderitem_obj;
 
     public function __construct(MarkaService $marka, OrderItemService $orderitem) 
     {

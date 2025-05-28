@@ -77,7 +77,7 @@
         }
 
         public static function getStorageRealPath($file="") {
-            return Storage::disk(config('filesystems.local'))->getDriver()->getAdapter()->applyPathPrefix($file);
+            return Storage::disk(config('filesystems.local'))->path($file);
         }
 
         public static function getPaymentMethod() {
@@ -94,13 +94,13 @@
             }
         }
 
-        public static function formatAmount($amount=0.00) {
-            return number_format($amount, 2, '.', ',');
-        }
-        public static function formatWeight($weight=0.00) {
-            return number_format($weight, 2, '.', '');
+        public static function formatAmount($amount = 0.00) {
+            return number_format((float) ($amount ?? 0.00), 2, '.', ',');
         }
 
+        public static function formatWeight($weight = 0.00) {
+            return number_format((float) ($weight ?? 0.00), 2, '.', '');
+        }
 
         public static function getHumanDate($value) {
             if(!empty($value)) { 

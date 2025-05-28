@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Storage;
 use Helper;
 
@@ -26,28 +27,19 @@ class Customer extends Model
      * @param  timestamp  $value
      * @return string
      */
-    public function setLastInvoiceDateAttribute($value)
-    {    
-        if(empty($value)){
-            $this->attributes['last_invoice_date'] = null;
-        }
-        else{
-            //$this->attributes['date'] = Helper::convertDateFormat($value,"!m/d/Y");
-            $this->attributes['last_invoice_date'] = Helper::convertDateFormat($value,config('constant.DATE_FORMAT_SHORT'));
-        }
-    }
-     /**
-     * Get the Last Invoice Date.
-     *
-     * @param  timestamp  $value
-     * @return string
-     */
-    public function getLastInvoiceDateAttribute($value)
+    public function lastInvoiceDate(): Attribute
     {
-        return Helper::DateFormat($value,config('constant.DATE_FORMAT_SHORT'));
+        return new Attribute(
+            get: fn ($value) => Helper::DateFormat($value, config('constant.DATE_FORMAT_SHORT')),
+            set: function ($value) {
+                if (empty($value)) {
+                    return null;
+                }
+                return Helper::convertDateFormat($value, config('constant.DATE_FORMAT_SHORT'));
+            }
+        );
     }
-
-    /**
+        /**
      * Scope a query to only include active items.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
@@ -62,20 +54,23 @@ class Customer extends Model
      * Get the Company name.
      * @return {companyname}
      */
-    public function getFullNameAttribute() 
+    public function fullName(): Attribute
     {
-        return "{$this->companyname}";        
+        return new Attribute(
+            get: fn () => "{$this->companyname}",
+        );
     }
-
     /**
      * Get the user's photo.
      *
      * @param  string  $value
      * @return string
      */
-    public static function getPhotoAttribute($value) 
+    public function photo(): Attribute
     {
-        return Helper::getProfileImg($value);
+        return new Attribute(
+            get: fn ($value) => Helper::getProfileImg($value),
+        );
     }
 
     /**
@@ -84,11 +79,6 @@ class Customer extends Model
      */
     public function deleteFile($file="") 
     {
-        if (Storage::exists($file)) {
-            return Storage::delete($file);
-        }
-
-        // Optional: return false or throw exception if file not found
-        return false;
+        return Storage::delete($file);
     }
 }

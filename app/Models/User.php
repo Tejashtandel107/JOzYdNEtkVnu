@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Laravel\Sanctum\HasApiTokens;
@@ -54,9 +55,11 @@ class User extends Authenticatable
      * @param  string  $value
      * @return string
      */
-    public function getFullNameAttribute() 
+    public function fullName(): Attribute
     {
-        return "{$this->firstname} {$this->lastname}";
+        return new Attribute(
+            get: fn () => "{$this->firstname} {$this->lastname}",
+        );
     }
 
     /**
@@ -65,14 +68,18 @@ class User extends Authenticatable
      * @param  string  $value
      * @return string
      */
-    public static function getPhotoAttribute($value) 
+    public function photo(): Attribute
     {
-        return Helper::getProfileImg($value);
+        return new Attribute(
+            get: fn ($value) => Helper::getProfileImg($value),
+        );
     }
 
-    public static function getLogoAttribute($value) 
+    public function logo(): Attribute
     {
-        return Helper::getProfileImg($value);
+        return new Attribute(
+            get: fn ($value) => Helper::getProfileImg($value),
+        );
     }
 
     /**

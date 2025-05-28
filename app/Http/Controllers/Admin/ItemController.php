@@ -14,7 +14,7 @@ use DB;
 
 class ItemController extends Controller
 {
-    protected $item_obj;
+    protected $item_obj,$orderitem_obj;
 
     public function __construct(ItemService $item, OrderItemService $orderitem) 
     {

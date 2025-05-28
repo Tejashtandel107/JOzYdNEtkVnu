@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Services\OrderItemService;
@@ -31,9 +32,11 @@ class OrderItems extends Model
      * @param  timestamp  $value
      * @return string
      */
-    public function getDateAttribute($value)
+    public function date(): Attribute
     {
-        return Helper::DateFormat($value,config('constant.DATE_FORMAT_SHORT'));
+        return new Attribute(
+            get: fn ($value) => Helper::DateFormat($value, config('constant.DATE_FORMAT_SHORT')),
+        );
     }
 
     /**
@@ -52,9 +55,11 @@ class OrderItems extends Model
      *
      * @return int
      */
-    public function getTotalWeightAttribute()
+    public function totalWeight(): Attribute
     {
-        return $this->weight * $this->quantity;
+        return new Attribute(
+            get: fn () => $this->weight * $this->quantity,
+        );
     }
 
     /**
@@ -62,18 +67,22 @@ class OrderItems extends Model
      *
      * @return int
      */
-    public function getTotalAmountAttribute()
+    public function totalAmount(): Attribute
     {
-        return ($this->rate/30) * $this->no_of_days * $this->weight * $this->quantity;
+        return new Attribute(
+            get: fn () => ($this->rate / 30) * $this->no_of_days * $this->weight * $this->quantity,
+        );
     }
 
     /**
      * Get the Company name.
      * @return {companyname}
      */
-    public function getFullNameAttribute() 
+    public function fullName(): Attribute
     {
-        return "{$this->companyname}";        
+        return new Attribute(
+            get: fn () => $this->companyname,
+        );
     }
 
     /**
@@ -265,7 +274,5 @@ class OrderItems extends Model
     public function getInsurancePayment(Request $request){
         $order_Item_service = new OrderItemService($this);
         return $order_Item_service->getOrderInsurance($request,false);
-        
-
     }
 }

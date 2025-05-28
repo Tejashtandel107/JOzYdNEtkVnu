@@ -23,7 +23,7 @@ use DB;
 
 class TestController extends Controller
 {
-    
+    protected $importservices_obj;
     public function __construct(ImportService $obj_importservices) 
     {
         $this->importservices_obj = $obj_importservices;
@@ -146,9 +146,11 @@ class TestController extends Controller
         return  Marka::select('marka_id','name')->where('marka_id',$marka_id)->where('item_id',$item_id)->first();    
         
     } 
-      public static function getStorageRealPath($file=""){
-        return Storage::disk(config('filesystems.local'))->getDriver()->getAdapter()->applyPathPrefix($file);
+    public static function getStorageRealPath($file = "")
+    {
+        return Storage::disk(config('filesystems.local'))->path($file);
     }
+
 /*
     public function __construct(CustomerOrderService $customerorder,OrderItemService $orderitem) 
     {

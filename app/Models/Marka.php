@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Carbon\Carbon;
 use Helper;
 use Auth;
@@ -24,9 +25,11 @@ class Marka extends Model
      * @param  timestamp  $value
      * @return string
      */
-    public function getCreatedAtAttribute($value) 
+    public function createdAt(): Attribute
     {
-        return Helper::DateFormat($value);
+        return new Attribute(
+            get: fn ($value) => Helper::DateFormat($value),
+        );
     }
 
     /**
@@ -35,9 +38,11 @@ class Marka extends Model
      * @param  timestamp  $value
      * @return string
      */
-    public function getUpdatedAtAttribute($value) 
+    public function updatedAt(): Attribute
     {
-        return Helper::DateFormat($value);
+        return new Attribute(
+            get: fn ($value) => Helper::DateFormat($value),
+        );
     }
     
     /**

@@ -297,7 +297,7 @@ class UserController extends Controller
             $message = "Please enter correct current password";
 
             $this->validate($request, [
-                'oldpassword' => 'required',
+                'oldpassword' => ['required', 'current_password'],
                 'password' => 'required|min:6|confirmed',
             ]);
 
@@ -339,7 +339,7 @@ class UserController extends Controller
     		$message = "Please enter correct current password";
 
     		$this->validate($request, [
-    			'oldpassword' => 'required',
+    			'oldpassword' => ['required', 'current_password'],
     			'password' => 'required|min:6|confirmed',
     		]);
 

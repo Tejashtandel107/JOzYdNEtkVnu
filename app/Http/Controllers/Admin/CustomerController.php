@@ -17,7 +17,7 @@ use Auth;
 
 class CustomerController extends Controller
 {
-    protected $customer_obj,$user_obj;
+    protected $customer_obj,$user_obj,$customerorder_obj;
 
     public function __construct(CustomerService $customer, CustomerOrderService $customerorder,UserService $userObj) 
     {

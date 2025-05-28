@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Carbon\Carbon;
 use Helper;
 
@@ -28,9 +29,11 @@ class CustomerOrders extends Model
      * @param  timestamp  $value
      * @return string
      */
-    public function getCreatedAtAttribute($value)
+    public function createdAt(): Attribute
     {
-        return Helper::DateFormat($value);
+        return new Attribute(
+            get: fn ($value) => Helper::DateFormat($value),
+        );
     }
     
     /**
@@ -39,9 +42,11 @@ class CustomerOrders extends Model
      * @param  timestamp  $value
      * @return string
      */
-    public function getUpdatedAtAttribute($value)
+    public function updatedAt(): Attribute
     {
-        return Helper::DateFormat($value);
+        return new Attribute(
+            get: fn ($value) => Helper::DateFormat($value),
+        );
     }
 
     /**
@@ -50,35 +55,24 @@ class CustomerOrders extends Model
      * @param  timestamp  $value
      * @return string
      */
-    public function getDateAttribute($value)
+    public function date(): Attribute
     {
-        return Helper::DateFormat($value,config('constant.DATE_FORMAT_SHORT'));
-    }
-
-    /**
-     * Set the Date.
-     *
-     * @param  timestamp  $value
-     * @return string
-     */
-    public function setDateAttribute($value)
-    {    
-        if(empty($value)){
-            $this->attributes['date'] = null;
-        }
-        else{
-            //$this->attributes['date'] = Helper::convertDateFormat($value,"!m/d/Y");
-            $this->attributes['date'] = Helper::convertDateFormat($value,config('constant.DATE_FORMAT_SHORT'));
-        }
+        return new Attribute(
+            get: fn ($value) => Helper::DateFormat($value, config('constant.DATE_FORMAT_SHORT')),
+            set: fn ($value) => empty($value) ? null : Helper::convertDateFormat($value, config('constant.DATE_FORMAT_SHORT')),
+        );
     }
 
     /**
      * Get the Company name.
      * @return {companyname}
      */
-    public function getFullNameAttribute() 
+    
+    public function fullName(): Attribute
     {
-        return "{$this->companyname}";        
+        return new Attribute(
+            get: fn () => $this->companyname,
+        );
     }
 
     /**
@@ -87,9 +81,10 @@ class CustomerOrders extends Model
      * @param  number  $value
      * @return number
      */
-    public function getAdditionalChargeAttribute($value)
+    public function additionalCharge(): Attribute
     {
-        return empty($value) ? '0.00' : $value;
-    }
-    
+        return new Attribute(
+            get: fn ($value) => empty($value) ? '0.00' : $value,
+        );
+    }    
 }

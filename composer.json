@@ -10,7 +10,6 @@
     "require": {
         "php": "^8.0.2",
         "beyondcode/laravel-dump-server": "^2.1",
-        "fideloper/proxy": "^4.4",
         "filp/whoops": "^2.18",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
