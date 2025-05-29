@@ -21,7 +21,9 @@ class CustomerOrders extends Model
      */
     protected $fillable = [ 'customer_id','user_id', 'type', 'date', 'vehicle', 'order_by','deleted_user_id', 'address', 'sr_no', 'from', 'transporter','additional_charge','notes'];
 
-    protected $dates = [ 'date' ];
+    protected $casts = [
+        'date' => 'datetime',
+    ];
 
     /**
      * Get the created at.

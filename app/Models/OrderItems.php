@@ -24,7 +24,9 @@ class OrderItems extends Model
      */
     protected $fillable = [ 'order_item_id', 'customer_order_id', 'type', 'item_id', 'marka_id', 'vakkal_number', 'chamber_id','floor_id','grid_id','item_rate','insurance_rate','cooling_charge_rate','weight','quantity','no_of_days','rate','description','is_taxable','sort' ];
 
-    protected $dates = [ 'date' ];
+    protected $casts = [
+        'date' => 'datetime',
+    ];
 
     /**
      * Get the Date.
