@@ -1,9 +1,0 @@
-[2025-05-03 11:28:20] local.ERROR: Command "about" is not defined. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"about\" is not defined. at /var/www/html/gurukrupafoodproducts/application/vendor/symfony/console/Application.php:639)
-[stacktrace]
-#0 /var/www/html/gurukrupafoodproducts/application/vendor/symfony/console/Application.php(233): Symfony\\Component\\Console\\Application->find()
-#1 /var/www/html/gurukrupafoodproducts/application/vendor/symfony/console/Application.php(145): Symfony\\Component\\Console\\Application->doRun()
-#2 /var/www/html/gurukrupafoodproducts/application/vendor/laravel/framework/src/Illuminate/Console/Application.php(90): Symfony\\Component\\Console\\Application->run()
-#3 /var/www/html/gurukrupafoodproducts/application/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(122): Illuminate\\Console\\Application->run()
-#4 /var/www/html/gurukrupafoodproducts/application/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
-#5 {main}
-"} 
