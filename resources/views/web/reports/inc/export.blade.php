@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
-    <title>{{ config('app.name')}} : Export Stocks</title>    
+    <title>GKFP - Export Stocks</title>       
 </head>
 <body>    
 <div class="ibox">
